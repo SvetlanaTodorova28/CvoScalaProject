@@ -1,0 +1,16 @@
+﻿<script>
+// Function to decode HTML entities
+function decodeHTMLEntities(text) {
+    var textArea = document.createElement('textarea');
+    textArea.innerHTML = text;
+    return textArea.value;
+}
+
+// Function to truncate long labels
+function truncateLabel(label, maxLength) {
+    if (label.length > maxLength) {
+        return label.substring(0, maxLength) + '...';
+    }
+    return label;
+    }
+</script>

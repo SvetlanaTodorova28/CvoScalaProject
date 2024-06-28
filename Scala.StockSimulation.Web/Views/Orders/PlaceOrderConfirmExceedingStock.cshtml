@@ -1,0 +1,48 @@
+﻿@model OrdersPlaceOrderViewModel
+
+<h2 class="text-center display-4 fw-bolder m-3">Bevestig de bestelling</h2>
+
+<p>Volgende producten overschrijden de voorraadlimieten:</p>
+
+<div class="mx-auto d-flex flex-column align-items-center w-100">
+
+    <table class="table table-bordered align-middle">
+        <thead>
+            <tr class="align-middle">
+                <th class="text-center">Product</th>
+                <th class="text-center">Fysieke voorraad</th>
+                <th class="text-center">Fictieve voorraad</th>
+                <th class="text-center">Binnenkort beschikbare voorraad</th>
+                <th class="text-center">Gereserveerde voorraad</th>
+                <th class="text-center">Max voorraad</th>
+                <th class="text-center">Min voorraad</th>
+                <th class="text-center">Aantal producten</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                @if ((product.FictionalStock - product.Quantity) < product.MinimumStock || (product.FictionalStock + product.Quantity) > product.MaximumStock)
+                {
+                    <tr>
+                        <td class="text-center">@product.ProductName</td>
+                        <td class="text-center">@product.PhysicalStock</td>
+                        <td class="text-center">@product.FictionalStock</td>
+                        <td class="text-center">@product.SoonAvailableStock</td>
+                        <td class="text-center">@product.ReservedStock</td>
+                        <td class="text-center">@product.MaximumStock</td>
+                        <td class="text-center">@product.MinimumStock</td>
+                        <td class="text-center">@product.Quantity</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<p>Ben je zeker dat je wil doorgaan met bestellen?</p>
+
+<form class="mx-auto d-flex justify-content-center w-100" asp-controller="Orders" asp-action="ConfirmAndSaveOrder" method="post" enctype="multipart/form-data">
+    <a class="btn btn-outline-info m-3" asp-controller="Orders" asp-action="SelectOrderType">Begin opnieuw</a>
+    <a class="btn btn-outline-info m-3" asp-controller="Orders" asp-action="PlaceOrder">Pas bestelling aan</a>
+    <button type="submit" class="btn btn-outline-info m-3">Plaats bestelling</button>
+</form>

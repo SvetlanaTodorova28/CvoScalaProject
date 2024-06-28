@@ -1,0 +1,14 @@
+# Sprint 2 Retrospective - Piranha
+## Positief
+1. Planning opgesplitst. Uit de vorige retrospective hebben we geleerd dat de sprint planning te lang duurde, waardoor de aandacht verslapte. Dus hebben we besloten om voor sprint 2 in een eerste meeting de issues op te lijsten en een tweede meeting te organiseren voor de effectieve poker planning. Dat ging veel vlotter. Iedereen had ook een beter overzicht van wat er moest gebeuren.
+2. Betere grip op het project. De gevraagde updates leken moeilijk, maar de issues die we opgepakt hebben, gingen redelijk vlot. Het zag er op het eerste zicht ingewikkeld uit, maar het was uiteindelijk wel doenbaar. Niet simpel, maar doenbaar. We kunnen wel tevreden zijn over het resultaat.
+3. Plezant groepje. Chapeau voor de inzet en bedankt om tijd vrij te maken week na week.
+4. Complementair team. We hebben elk onze talenten, maar vulden elkaar goed aan.
+5. Goede reviews. Veel verbeterd ten opzichte van sprint 1. We reviewden telkens mooi het werk van de anderen.
+6. Scrum poker. We hebben het aantal storypoints goed ingeschat. Omdat we vorige keer merkten dat er soms toch meer tijd nodig was, zelfs voor relatief kleine issues. Dat klopte nu wel redelijk met de effectief gewerkte uren.
+7. Commitment. Op korte tijd hebben we veel gedaan gekregen.
+
+## Minder positief (werkpunten)
+1. Te grote issues. Het was een bewuste keuze om bepaalde updates in één groot issue te houden, maar dat zorgde voor blokkeringen en problemen in de planning. Er werd ook sneller iets over het hoofd gezien bij het programmeren of testen, omdat de focus op de kern van het issue lag en minder op kleinere aspecten ervan. Met kleinere issues zouden we toch sneller kunnen itereren en gelinkte issues beter kunnen spreiden.
+3. Doel van de sprint niet behaald. Hicham zijn issues blijven 'in progress' staan, zelfs die van sprint 1. Dat is niet per se de schuld van de rest van het team. Hij kreeg telkens de kans en hij bleef/blijft ook deel van de groep. Maar we hadden hier misschien eerder op moeten reageren en er toch iets van zeggen? De openstaande issues gaan we gezien de drukke planning bekijken na het examen CIA.
+4. Eigen code zelf testen. Met het oog op efficiëntie is het handiger dat een developer een issue niet (te) snel in review zet, maar er zelf kritisch doorgaat. Misschien moeten we hiervoor extra tijd rekenen bij de planning.

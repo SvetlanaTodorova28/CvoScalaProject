@@ -1,0 +1,47 @@
+@if (TempData.ContainsKey("ErrorMessage"))
+{
+    <span class="text-center fw-bolder alert-danger">
+        @TempData["ErrorMessage"]
+    </span>
+}
+@if (TempData.ContainsKey("SuccessMessage"))
+{
+    <span class="text-center fw-bolder alert-success">
+        @TempData["SuccessMessage"]
+    </span>
+}
+
+@if (TempData.ContainsKey("UserNameNullMessage")){
+<span class="text-center fw-bolder alert-danger">
+    @TempData["UserNameNullMessage"]
+    </span>
+}
+@if (TempData.ContainsKey("NotValidUserNameMessage")){
+<span class="text-center fw-bolder alert-danger">
+    @TempData["NotValidUserNameMessage"]
+    </span>
+}
+@if (TempData.ContainsKey("FirstNameNullMessage"))
+{
+    <span class="text-center fw-bolder alert-danger">
+        @TempData["FirstNameNullMessage"]
+    </span>
+}
+@if (TempData.ContainsKey("LastNameNullMessage")){
+    <span class="text-center fw-bolder alert-danger">
+    @TempData["LastNameNullMessage"]
+    </span>
+}
+
+
+
+<h3 class="text-center display-4 fw-bolder m-3">Importeer Studenten</h3>
+<form method="post" enctype="multipart/form-data">
+    <div class="mx-auto d-flex align-items-center w-25">
+        <input class="file m-1" name="file" type="file" />
+    </div>
+    <div class="mx-auto w-25">
+        <input class="w-100 m-1 btn btn-outline-danger" type="submit" asp-controller="Admin" asp-action="UploadExcelFileStudents" value="Importeer studenten voor registratie" />
+        <a class="w-100 m-1 btn btn-outline-info" asp-area="Admin" asp-controller="Admin" asp-action="Index">Terug</a>
+    </div>
+</form>

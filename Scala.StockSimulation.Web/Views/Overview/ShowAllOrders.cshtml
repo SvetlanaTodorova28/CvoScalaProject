@@ -1,0 +1,64 @@
+﻿@model OverviewShowAllOrdersViewModel
+
+<div class="mx-auto d-flex flex-column align-items-center">
+    @if (Model.Orders.Count() == 0)
+    {
+        <h2 class="text-center display-4 fw-bolder m-3">Nog geen bestellingen</h2>
+    }
+    @if (Model.Orders.Count() != 0)
+    {
+        <h2 class="text-center display-4 fw-bolder m-3">Alle bestellingen</h2>
+        <table class="table table-bordered">
+            <tr class="align-middle">
+                <th class="text-center">Datum</th>
+                <th class="text-center">Bestelnummer</th>
+                <th class="text-center">Type bestelling</th>
+                <th class="text-center">Bestelling Bij</th>
+                <th class="text-center">Unieke Producten</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Info</th>
+            </tr>
+
+            @foreach (var order in Model.Orders)
+            {
+                <tr class="align-middle">
+                    <td class="text-center">@order.DateOrdered</td>
+                    <td class="text-center">@order.OrderNumber</td>
+                    <td class="text-center">
+                        @order.Value
+                        @if (order.CustomerName != string.Empty)
+                        {
+                            @($" ({order.CustomerName})")
+                        }
+                    </td>
+                    <td class="text-center">@order.SupplierName</td>
+                    <td class="text-center">@order.OrderQuantity</td>
+                    @if (@order.Status == "Niet Geleverd")
+                    {
+                        <td class="text-center">
+                            @if (order.OrderTypeId == Guid.Parse("00000000-0000-0000-0000-000000000017"))
+                            {
+                                <a class="btn btn-outline-info w-100" asp-route-orderId="@order.Id" asp-action="ProductsDelivered" asp-controller="Orders">
+                                    Leveren aan klant
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-outline-info w-100" asp-route-orderId="@order.Id" asp-action="ProductsDelivered" asp-controller="Orders">
+                                    Ontvangen van Leverancier
+                                </a>
+                            }
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-center">@order.Status</td>
+                    }
+                    <td class="text-center"><a class="btn btn-outline-info w-100" asp-action="OrderInfo" asp-controller="Overview" asp-route-orderId="@order.Id">Info</a></td>
+                </tr>
+            }
+        </table>
+    }
+
+    <a class="btn btn-outline-info m-3" asp-action="index" asp-controller="Overview">Terug</a>
+</div>

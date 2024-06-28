@@ -1,0 +1,10 @@
+﻿@model UploadExcelFileViewModel
+
+<h2 class="text-center display-4 fw-bolder m-3">Bevestig nieuwe import.</h2>
+<p>Ben je zeker dat je @Model.FileName wil importeren?</p>
+<form class="mx-auto d-flex justify-content-center w-100" asp-controller="Admin" asp-action="ProcessExcelUpload" method="Post">
+    <input asp-for="FilePath" />
+    <a asp-controller="Admin" asp-action="CancelExcelUpload" asp-route-filePath="@Model.FilePath" class="btn btn-outline-info m-3">Terug</a>
+    <button type="submit" class="btn btn-outline-danger m-3">Bevestig</button>
+</form>
+

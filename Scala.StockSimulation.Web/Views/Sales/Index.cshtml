@@ -1,0 +1,10 @@
+﻿@model SalesIndexViewModel
+
+<h2 class="text-center display-4 fw-bolder m-3">Welk soort grafiek?</h2>
+<div>
+    <div class="mx-auto w-25">
+        <a class="w-100 m-1 btn btn-outline-info" asp-controller="Sales" asp-action="SelectProducts" asp-route-chartType="bar" asp-route-studentId="@Model.StudentId">Staafdiagram</a>
+        <a class="w-100 m-1 btn btn-outline-info" asp-controller="Sales" asp-action="SelectProducts" asp-route-chartType="pie" asp-route-studentId="@Model.StudentId">Cirkeldiagram</a>
+        <a class="w-100 m-1 btn btn-outline-info" asp-controller="Overview" asp-action="Index">Terug</a>
+    </div>
+</div>

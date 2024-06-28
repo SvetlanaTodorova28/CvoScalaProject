@@ -1,0 +1,80 @@
+﻿@model AdminShowResultsViewModel
+
+<h2 class="text-center display-4 fw-bolder m-3">Zoek</h2>
+<div class="mx-auto d-flex flex-column align-items-center">
+    <form class="mx-auto d-flex align-items-center w-50" method="post" asp-controller="Admin" asp-action="ShowResults">
+        <input class="form-control me-1" type="search" placeholder="Typ hier uw zoekopdracht" asp-for="@Model.SearchTerm">
+        <button class="btn btn-outline-info m-1" type="submit">Zoeken</button>
+    </form>
+    
+</div>
+
+<div class="mx-auto d-flex align-items-center w-25">
+
+    <a class="btn btn-outline-info m-1" asp-controller="Admin" asp-action="Index">Terug</a>
+    @if (Model.Orders.Count() > 0)
+    {
+        <a class="btn btn-outline-info m-1" asp-controller="Admin" asp-action="ExportStudentOrderItems" asp-route-userid="@Model.ApplicationUserId">Exporteer naar excel</a>
+    }
+</div>
+<h2 class="text-center display-6 fw-bolder m-3">@Model.Name</h2>
+@if (Model.Orders.Count() == 0)
+{
+    <h2 class="text-center display-6 fw-bolder m-3">Geen bestellingen gevonden</h2>
+}
+else
+{
+    <h2 class="text-center display-6 fw-bolder m-3">Overzicht van bestellingen</h2>
+}
+<div class="mx-auto d-flex flex-column align-items-center">
+    @foreach (var order in Model.Orders)
+    {
+        <h3 class="text-center fw-bolder m-3">Ordernr: @order.Value</h3>
+        <table class="table table-bordered">
+            <tr class="align-middle">
+                <th class="text-center">Product</th>
+                <th class="text-center">Fysieke voorraad</th>
+                <th class="text-center">Fictieve voorraad</th>
+                <th class="text-center">Binnenkort beschikbaar</th>
+                <th class="text-center">Gereserveerd</th>
+                <th class="text-center">Maximum voorraad</th>
+                <th class="text-center">Minimum voorraad</th>
+                <th class="text-center">Aantal besteld</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Datum</th>
+            </tr>
+            <tbody>
+                @foreach (var userProductState in Model.UserProductStates.Where(u => u.OrderId == order.Id))
+                {
+                    <tr class="align-middle">
+                        <td class="text-center">@userProductState.ProductName</td>
+                        @if (userProductState.PhysicalStock < userProductState.MinimumStock || userProductState.PhysicalStock > userProductState.MaximumStock)
+                        {
+                            <td class="text-center text-danger">@userProductState.PhysicalStock</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@userProductState.PhysicalStock</td>
+                        }
+                        @if (userProductState.FictionalStock < userProductState.MinimumStock || userProductState.FictionalStock > userProductState.MaximumStock)
+                        {
+                            <td class="text-center text-danger">@userProductState.FictionalStock</td>
+                        }
+                        else
+                        {
+                            <td class="text-center">@userProductState.FictionalStock</td>
+                        }
+                        <td class="text-center">@userProductState.SoonAvailableStock</td>
+                        <td class="text-center">@userProductState.ReservedStock</td>
+                        <td class="text-center">@userProductState.MaximumStock</td>
+                        <td class="text-center">@userProductState.MinimumStock</td>
+                        <td class="text-center">@userProductState.Quantity</td>
+                        <td class="text-center">@userProductState.Status</td>
+                        <td class="text-center">@userProductState.Created</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

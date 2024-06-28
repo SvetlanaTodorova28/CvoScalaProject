@@ -1,0 +1,37 @@
+name: CI-Build-Test
+
+on:
+  workflow_dispatch:
+
+  pull_request:
+    branches: [ "dev","main" ]
+
+jobs:
+  RepoGuardian:
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    #1 checkout the repo
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    #2 install dotnet on the runner
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    #3 ophaal de afhankelijkheden(nuggets)
+    - name: Restore dependencies
+      run: dotnet restore
+   
+    #4  '--no-restore' is gebruikt om niet altijd de nodige nugets te checken
+    - name: Build
+      run: dotnet build --no-restore
+      
+    #5 in case later tests must happens 
+    #"--no-build" niet opnieuw nodig omdat al gebeurd is in de vorige stap
+    # "--verbosity normal" om the info over the testen te bepalen. "minimal" is the default
+    - name: Test
+      run: dotnet test --no-build --verbosity normal

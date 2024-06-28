@@ -1,0 +1,10 @@
+﻿<h2 class="text-center display-4 fw-bolder m-3">Welke bestelling?</h2>
+<div>
+    <div class="mx-auto w-25">
+        <a class="w-100 m-1 btn btn-outline-info" asp-controller="Orders" asp-action="SelectProductSupplier"
+           asp-route-ordertypeId="00000000-0000-0000-0000-000000000016">Bij leverancier</a>
+        <a class="w-100 m-1 btn btn-outline-info" asp-controller="Orders" asp-action="SelectProductSupplier"
+           asp-route-ordertypeId="00000000-0000-0000-0000-000000000017">Voor klant</a>
+        <a class="w-100 m-1 btn btn-outline-info" asp-controller="Overview" asp-action="Index">Terug</a>
+    </div>
+</div>

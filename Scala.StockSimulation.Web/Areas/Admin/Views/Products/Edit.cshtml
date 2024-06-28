@@ -1,0 +1,68 @@
+@model ProductsEditViewModel
+<title>@ViewBag.Title</title>
+
+<div class="row m-3">
+    <div class="col col-lg-5 mx-auto border border-1 rounded rounded-2">
+        <form asp-area="Admin" asp-controller="Products" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <h4 class="text-center text-uppercase ">Verander de prijs of de korting van @Model.Name </h4>
+            <h6 class="text-center text-uppercase ">Met leverancier @Model.SupplierName </h6>
+            <div class="form-group" >
+                <label asp-for="Price" class="labels-discounts"></label>
+                <input asp-for="Price" class="form-control bg-dark-subtle bg-opacity-60" >
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="Quantity" class="labels-discounts"></label>
+                <input asp-for="Quantity" class="form-control bg-dark-subtle bg-opacity-60" >
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="ShippingCost" class="labels-discounts"></label>
+                <input asp-for="ShippingCost" class="form-control bg-dark-subtle bg-opacity-60" >
+                <span asp-validation-for="ShippingCost" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="FreeShippingThreshold" class="labels-discounts"></label>
+                <input asp-for="FreeShippingThreshold" class="form-control bg-dark-subtle bg-opacity-60" >
+                <span asp-validation-for="FreeShippingThreshold" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="SupplierDiscountRate" class="labels-discounts"></label>
+                <input asp-for="SupplierDiscountRate" class="form-control bg-dark-subtle bg-opacity-60" >
+                <span asp-validation-for="SupplierDiscountRate" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="QuantityForVolumeDiscount" class="labels-discounts"></label>
+                <input asp-for="QuantityForVolumeDiscount" class="form-control bg-dark-subtle bg-opacity-60" >
+                <span asp-validation-for="QuantityForVolumeDiscount" class="text-danger"></span>
+            </div>
+            <div class="form-group" >
+                <label asp-for="VolumeDiscountRate" class="labels-discounts"></label>
+                <input asp-for="VolumeDiscountRate" class="form-control bg-dark-subtle bg-opacity-60" >
+                <span asp-validation-for="VolumeDiscountRate" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                @for (int i = 0; i < Model.Discounts.Count(); i++){
+                    <label asp-for="@Model.Discounts[i].IsActive">
+                        @Model.Discounts[i].Type
+                    </label>
+                    <input asp-for="@Model.Discounts[i].IsActive" class="form-check-inline">
+                    <input asp-for="@Model.Discounts[i].Rate" class ="form-control"/>
+                    <input asp-for="@Model.Discounts[i].Type" class ="form-control"/>
+                    
+                }
+            </div>
+            @if (Context.Session.Keys.Contains("newPrice")){
+                <div>
+                    <label asp-for="ExamplePriceWithDiscounts" class="labels-discounts">Prijs met gekozen korting: @Context.Session.GetString("newPrice")</label>
+                </div>
+            }
+            <input asp-for="Id" />
+            <button asp-controller="Products" asp-action="CalculateNewPrice" class="btn btn-info mt-2 mb-2">Zie prijs met gekozen korting</button>
+            <button type="submit" class="btn btn-info mt-2 mb-2">Bewerk</button>
+            <a asp-area="Admin" asp-controller="Products" asp-action="Index"  class="btn btn-outline-info mt-2 mb-2">Terug</a>
+        </form>
+    </div>
+</div>
+

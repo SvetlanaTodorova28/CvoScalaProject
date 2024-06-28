@@ -1,0 +1,103 @@
+﻿@model OrdersPlaceOrderViewModel
+<h2 class="text-center display-4 fw-bolder m-3">
+    Geef aantallen in voor bestelling
+    @if (Model.OrderType == "klant")
+    {
+        @($"voor klant")
+    }
+    else
+    {
+        @($"bij leverancier")
+    }
+</h2>
+<div asp-validation-summary="All" class="text-danger fw-bolder"></div>
+<form class="mx-auto d-flex flex-column align-items-center w-100" asp-controller="Orders" asp-action="PlaceOrder" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.OrderType" />
+    <div class="mb-4">
+        @if (Model.OrderType == "klant")
+        {
+            <div class="form-group">
+                <label asp-for="@Model.CustomerName"></label>
+                <input asp-for="@Model.CustomerName" class="form-control">
+            </div>
+        }
+    </div>
+    <table class="table table-bordered align-middle">
+        <thead>
+            <tr class="align-middle">
+                <th class="text-center">Product</th>
+                <th class="text-center">Fysieke voorraad</th>
+                <th class="text-center">Fictieve voorraad</th>
+                <th class="text-center">Binnenkort beschikbare voorraad</th>
+                <th class="text-center">Gereserveerde voorraad</th>
+                <th class="text-center">Max voorraad</th>
+                <th class="text-center">Min voorraad</th>
+                <th class="text-center">Aantal producten</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Products.Count(); i++)
+            {
+                <input type="hidden" asp-for="@Model.Products[i].ProductId" />
+                <tr>
+                    <td class="text-center">
+                        <input type="hidden" asp-for="@Model.Products[i].ProductName" />
+                        @Model.Products[i].ProductName
+                    </td>
+                    @if (Model.Products[i].PhysicalStock < Model.Products[i].MinimumStock || Model.Products[i].PhysicalStock > Model.Products[i].MaximumStock)
+                    {
+                        <td class="text-center text-danger">
+                            <input type="hidden" asp-for="@Model.Products[i].PhysicalStock" />
+                            @Model.Products[i].PhysicalStock
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model.Products[i].PhysicalStock" />
+                            @Model.Products[i].PhysicalStock
+                        </td>
+                    }
+                    @if (Model.Products[i].FictionalStock < Model.Products[i].MinimumStock || Model.Products[i].FictionalStock > Model.Products[i].MaximumStock)
+                    {
+                        <td class="text-center text-danger">
+                            <input type="hidden" asp-for="@Model.Products[i].FictionalStock" />
+                            @Model.Products[i].FictionalStock
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-center">
+                            <input type="hidden" asp-for="@Model.Products[i].FictionalStock" />
+                            @Model.Products[i].FictionalStock
+                        </td>
+                    }
+                    <td class="text-center">
+                        <input type="hidden" asp-for="@Model.Products[i].SoonAvailableStock" />
+                        @Model.Products[i].SoonAvailableStock
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" asp-for="@Model.Products[i].ReservedStock" />
+                        @Model.Products[i].ReservedStock
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" asp-for="@Model.Products[i].MaximumStock" />
+                        @Model.Products[i].MaximumStock
+                    </td>
+                    <td class="text-center">
+                        <input type="hidden" asp-for="@Model.Products[i].MinimumStock" />
+                        @Model.Products[i].MinimumStock
+                    </td>
+                    <td class="text-center">
+                        <input class="form-control text-secondary" type="number" asp-for="@Model.Products[i].Quantity" />
+                        <span asp-validation-for="@Model.Products[i].Quantity" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="mx-auto d-flex align-items-center">
+        <a class="btn btn-outline-info m-3" asp-controller="Orders" asp-action="SelectOrderType">Begin opnieuw</a>
+        <button type="submit" class="btn btn-outline-info m-3">Plaats bestelling</button>
+    </div>
+</form>

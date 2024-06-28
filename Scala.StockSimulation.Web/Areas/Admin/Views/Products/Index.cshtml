@@ -1,0 +1,56 @@
+@model ProductsIndexViewModel
+
+<title>@ViewBag.Title</title>
+<div class="row">
+    <div class="col col-lg-10 mx-auto">
+        
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          
+            <table class="table overflow-scroll table-hover ">
+                @{
+                string? currentSupplierName = "";
+                }
+                @foreach (var product in Model.Products){
+                    if (!currentSupplierName.Equals(product.SupplierName))
+                    {
+                        <tr>
+                            <td colspan="4" >
+                                <p class="text-uppercase name-supplier" >@product.SupplierName</p>
+                            </td>
+                        </tr>
+                        currentSupplierName = product.SupplierName;
+                    }
+                    <tr>
+                        <td>
+                            <p class="text-uppercase">@product.Name</p>
+
+                        </td>
+
+                        <td>
+                            <a asp-area="Admin"
+                               asp-controller="Products"
+                               asp-action="Info"
+                               asp-route-id="@product.Id"
+                               class="btn btn-outline-info ">
+                                Info
+                            </a> ||
+                            <a asp-area="Admin"
+                               asp-controller="Products"
+                               asp-action="Edit"
+                               asp-route-id="@product.Id"
+                               class="btn btn-outline-info">
+                                Bewerken
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+           
+        </div>
+        <a class="btn btn-outline-info  btn-lg w-15 m-3" asp-controller="Admin" asp-action="Index">Terug</a>
+    </div>
+   
+    
+</div>

@@ -1,0 +1,10 @@
+﻿@model Scala.StockSimulation.Web.Areas.Admin.ViewModels.AdminSearchViewModel
+<h2 class="text-center display-4 fw-bolder m-3">Zoek</h2>
+<div class="mx-auto d-flex flex-column align-items-center">
+    <form class="mx-auto d-flex align-items-center w-50" method="post" asp-controller="Admin" asp-action="ShowResults">
+        <input class="form-control me-1" type="search" placeholder="Typ hier uw zoekopdracht" asp-for="@Model.SearchTerm">
+        <button class="btn btn-outline-info m-1" type="submit">Zoeken</button>
+        <a class="btn btn-outline-info m-1" asp-area="Admin" asp-controller="Admin" asp-action="Index">Terug</a>
+    </form>
+    <div asp-validation-summary="All" class="text-danger fw-bolder"></div>
+</div>

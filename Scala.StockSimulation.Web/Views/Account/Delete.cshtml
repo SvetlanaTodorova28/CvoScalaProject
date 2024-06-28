@@ -1,0 +1,10 @@
+﻿@model AccountDeleteViewmodel
+
+<h2 class="text-center display-4 fw-bolder m-3">Verwijder student</h2>
+<p>Ben je zeker dat je het account @Model.Email wil wissen?</p>
+<form class="mx-auto d-flex justify-content-center w-100" asp-controller="Account" asp-action="Delete" method="Post">
+    <input asp-for="Id" />
+    <a asp-area="Admin" asp-controller="Admin" asp-action="StudentAccounts" class="btn btn-outline-info m-3">Terug</a>
+    <button type="submit" class="btn btn-outline-danger m-3">Delete</button>
+</form>
+

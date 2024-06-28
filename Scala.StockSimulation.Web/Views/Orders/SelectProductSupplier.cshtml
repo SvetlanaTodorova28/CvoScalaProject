@@ -1,0 +1,12 @@
+﻿@model OrdersSelectProductSupplierViewModel
+<h2 class="text-center display-4 fw-bolder m-3">Leveranciers</h2>
+<form class="mx-auto d-flex flex-column align-items-center w-25" asp-controller="Orders" asp-action="SelectProductSupplier" method="post">
+    <div class="form-group w-100">
+        <label class="mb-1" asp-for="SupplierId"></label>
+        <select class="form-select text-secondary" asp-for="SupplierId" asp-items="@Model.Suppliers"></select>
+    </div>
+    <div class="mx-auto d-flex align-items-center">
+        <a class="btn btn-outline-info m-3" asp-controller="Orders" asp-action="SelectOrderType">Begin opnieuw</a>
+        <button type="submit" class="m-3 btn btn-outline-info">Toon producten</button>
+    </div>
+</form>

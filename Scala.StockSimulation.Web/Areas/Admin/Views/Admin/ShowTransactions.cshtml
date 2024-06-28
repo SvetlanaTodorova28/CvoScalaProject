@@ -1,0 +1,119 @@
+﻿@model AdminShowTransactionsViewModel
+<h2 class="text-center display-4 fw-bolder m-3">@Model.StudentName</h2>
+<div class="mx-auto d-flex flex-column align-items-center w-75">
+    @if (Model.Transactions.Count() == 0)
+    {
+        <h4 class="mb-2 mx-auto">Geen transacties gevonden</h4>
+    }
+    else
+    {
+        <div class="mb-4">
+            <div class="row mb-3 justify-content-center">
+                <div class="col-md-3">
+                    <select id="filterColumn" class="form-select">
+                        <option value="0">Bestelnummer</option>
+                        <option value="1">Type bestelling</option>
+                        <option value="2">Product</option>
+                        <option value="3">Fysieke voorraad</option>
+                        <option value="4">Fictieve voorraad</option>
+                        <option value="5">Binnenkort beschikbaar</option>
+                        <option value="6">Gereserveerd</option>
+                        <option value="7">Maximum voorraad</option>
+                        <option value="8">Minimum voorraad</option>
+                        <option value="9">Aantal besteld</option>
+                        <option value="10">Status</option>
+                        <option value="11">Datum</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="filterInput" class="form-control" placeholder="Filter op Bestelnummer...">
+                </div>
+            </div>
+            <table class="table table-bordered" id="transactionTable">
+                <thead>
+                    <tr>
+                        <th class="text-center">Bestelnummer</th>
+                        <th class="text-center">Type bestelling</th>
+                        <th class="text-center">Product</th>
+                        <th class="text-center">Fysieke voorraad</th>
+                        <th class="text-center">Fictieve voorraad</th>
+                        <th class="text-center">Binnenkort beschikbaar</th>
+                        <th class="text-center">Gereserveerd</th>
+                        <th class="text-center">Maximum voorraad</th>
+                        <th class="text-center">Minimum voorraad</th>
+                        <th class="text-center">Aantal besteld</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Datum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model.Transactions)
+                    {
+                        @foreach (var item in transaction.UserProductStates)
+                        {
+                            <tr>
+                                <td class="text-center">@transaction.OrderNr</td>
+                                <td class="text-center">
+                                    @transaction.OrderType
+                                    @if (transaction.CustomerName != string.Empty)
+                                    {
+                                        @($" ({transaction.CustomerName})")
+                                    }
+                                </td>
+                                <td class="text-center">@item.ProductName</td>
+                                <td class="text-center">@item.PhysicalStock</td>
+                                <td class="text-center">@item.FictionalStock</td>
+                                <td class="text-center">@item.SoonAvailableStock</td>
+                                <td class="text-center">@item.ReservedStock</td>
+                                <td class="text-center">@item.MinimumStock</td>
+                                <td class="text-center">@item.MaximumStock</td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-center">@item.Status</td>
+                                <td class="text-center">@item.Created</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    <h4 id="noResultsMessage" class="mb-2 mx-auto d-none">Geen transacties gevonden</h4> <!-- Hidden by default -->
+    <a class="btn btn-outline-info m-3" asp-area="Admin" asp-controller="Admin" asp-action="ShowStudents">Terug</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#filterInput').keyup(function () {
+                var columnIndex = $('#filterColumn').val();
+                var value = $(this).val().toLowerCase();
+                var found = false;
+                $('#transactionTable tbody tr').each(function () {
+                    var cellText = $(this).find('td').eq(columnIndex).text().toLowerCase();
+                    if (cellText.includes(value)) {
+                        $(this).show();
+                        found = true;
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                if (!found) {
+                    $('#noResultsMessage').removeClass('d-none');
+                    $('#transactionTable').addClass('d-none');
+
+                } else {
+                    $('#noResultsMessage').addClass('d-none');
+                    $('#transactionTable').removeClass('d-none');
+                }
+            });
+
+            $('#filterColumn').change(function () {
+                $('#filterInput').val('');
+                var columnIndex = $(this).val();
+                $('#transactionTable tbody tr').show();
+                $('#filterInput').attr('placeholder', 'Filter op ' + $('option:selected', this).text() + '...');
+                $('#noResultsMessage').addClass('d-none');
+            });
+        });
+    </script>
+}

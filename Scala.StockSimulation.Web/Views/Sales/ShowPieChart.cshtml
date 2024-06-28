@@ -1,0 +1,54 @@
+﻿@model SalesShowResultsViewModel
+
+<partial name="_SalesChartPartial" />
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    @{
+        await Html.RenderPartialAsync("_SalesChartLabelScriptsPartial");
+    }
+    <script>
+        var colors = [
+                '#0d6efd',
+                '#6610f2',
+                '#6f42c1',
+                '#d63384',
+                '#dc3545',
+                '#fd7e14',
+                '#ffc107',
+                '#198754',
+                '#20c997',
+                '#6c757d',
+                '#343a40',
+                '#0dcaf0',
+                '#f8f9fa',
+                '#212529',
+            ];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('productSalesChart').getContext('2d');
+
+            // Decode HTML entities for labels and truncate long labels
+            var maxLength = 25;
+            var labels = [@foreach (var item in Model.SalesData) { <text>'@item.ProductName'</text>@(item != Model.SalesData.LastOrDefault() ? "," : "") }];
+            labels = labels.map(function(label) {
+                var decodedLabel = decodeHTMLEntities(label);
+                return truncateLabel(decodedLabel, maxLength);
+        });
+
+            var productSalesChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Aantal verkochte stuks',
+                        data: [@foreach (var item in Model.SalesData) { @item.Quantity@(item != Model.SalesData.LastOrDefault() ? "," : "") }],
+                        backgroundColor: colors,
+                        borderColor: 'rgba(255, 255, 255, 1)',
+                        borderWidth: 1
+                    }]
+                }
+            });
+        });
+    </script>
+}

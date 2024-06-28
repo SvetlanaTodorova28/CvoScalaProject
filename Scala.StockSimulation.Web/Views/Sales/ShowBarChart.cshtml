@@ -1,0 +1,48 @@
+﻿@model SalesShowResultsViewModel
+
+<partial name="_SalesChartPartial" />
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+    @{
+        await Html.RenderPartialAsync("_SalesChartLabelScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('productSalesChart').getContext('2d');
+
+            // Decode HTML entities for labels and truncate long labels
+            var maxLength = 25;
+            var labels = [@foreach (var item in Model.SalesData) { <text>'@item.ProductName'</text>@(item != Model.SalesData.LastOrDefault() ? "," : "") }];
+            labels = labels.map(function(label) {
+                var decodedLabel = decodeHTMLEntities(label);
+                return truncateLabel(decodedLabel, maxLength);
+            });
+
+            var productSalesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Aantal verkochte stuks',
+                        data: [@foreach (var item in Model.SalesData) { @item.Quantity@(item != Model.SalesData.LastOrDefault() ? "," : "") }],
+                        backgroundColor: '#ffc107',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,48 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Scala.StockSimulation.Core.Enums
+@model ProductsInfoViewModel
+<title>@ViewBag.Title</title>
+<div class="row p-5">
+    <div class="col-lg-9 mx-auto">
+        <div class="card-body h-100 info-table">
+            <h5 class="card-title text-center">@Model.Name</h5>
+            <table class="table" style="border-collapse: collapse;">
+                <tbody >
+                <tr>
+                    <th scope="row" >Supplier Name:</th>
+                    <td>@Model.SupplierName</td>
+                </tr>
+                <tr>
+                    <th scope="row" >Prijs:</th>
+                    <td > &euro;@Model.Price.ToString("F2")</td>
+                </tr>
+           
+                           
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th scope="row" >Prijs met kortingen :</th>
+                    <td> &euro;@Model.PriceWithDiscounts.ToString("F2")</td>
+                </tr>
+                </tfoot>
+            </table>
+       
+            @if (Model.Discounts.Any()){ 
+                <p class="card-text p-0">
+                    Beschikbare kortingen voor dit product:
+                    @foreach (var discount in Model.Discounts){
+                        if (!discount.Type.Equals(DiscountType.Shipping.ToText())){
+                            <p>  @discount.Type: @discount.Rate %</p>
+                        }
+                        else if(!string.IsNullOrEmpty(DiscountType.Shipping.ToText())){
+                            <p>  @DiscountType.Shipping.ToText() : &euro;@discount.Rate</p>
+                        }
+                    }
+                   
+                </p>
+            }
+       
+            <a asp-controller="Products" asp-action="Index" class="btn btn-outline-info">Terug</a>
+        </div>
+    </div>
+</div>

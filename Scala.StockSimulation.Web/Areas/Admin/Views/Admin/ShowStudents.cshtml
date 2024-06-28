@@ -1,0 +1,26 @@
+﻿@model AdminShowStudentsViewModel
+<h2 class="text-center display-4 fw-bolder m-3">Alle Leerlingen</h2>
+<div class="mx-auto d-flex flex-column align-items-center w-50">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="align-middle">
+                <th class="text-center">Leerling</th>
+                <th class="text-center">Info</th>
+                <th class="text-center">Data</th>
+                <th class="text-center">Actie</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr class="align-middle">
+                    <th class="text-center">@user.Value</th>
+                    <th class="text-center"><a class="btn btn-outline-info w-100" asp-controller="Admin" asp-action="ShowTransactions" asp-route-userId="@user.Id">Transacties</a></th>
+                    <th class="text-center"><a class="btn btn-outline-info w-100" asp-area="" asp-controller="Sales" asp-action="Index" asp-route-studentId="@user.Id">Verkoopcijfers</a></th>
+                    <th class="text-center"><a class="btn btn-outline-danger w-100" asp-controller="Admin" asp-action="ConfirmResetStudent" asp-route-userId="@user.Id">Reset</a></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-outline-info m-3" asp-area="Admin" asp-controller="Admin" asp-action="Index">Terug</a>
+</div>

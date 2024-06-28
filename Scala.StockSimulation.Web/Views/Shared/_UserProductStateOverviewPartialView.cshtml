@@ -1,0 +1,46 @@
+﻿@model BaseOverviewViewModel
+
+<table class="table table-bordered">
+    <tr class="align-middle">
+        <th class="text-center">Product</th>
+        <th class="text-center">Fysieke voorraad</th>
+        <th class="text-center">Fictieve voorraad</th>
+        <th class="text-center">Binnenkort beschikbaar </th>
+        <th class="text-center">Gereserveerd</th>
+        <th class="text-center">Maximum voorraad</th>
+        <th class="text-center">Minimum voorraad</th>
+        <th class="text-center">Aantal besteld</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Datum</th>
+    </tr>
+
+    @foreach (var userProductState in Model.UserProductStates)
+    {
+        <tr class="align-middle">
+            <td class="text-center">@userProductState.ProductName</td>
+            @if (userProductState.PhysicalStock < userProductState.MinimumStock || userProductState.PhysicalStock > userProductState.MaximumStock)
+            {
+                <td class="text-center text-danger">@userProductState.PhysicalStock</td>
+            }
+            else
+            {
+                <td class="text-center">@userProductState.PhysicalStock</td>
+            }
+            @if (userProductState.FictionalStock < userProductState.MinimumStock || userProductState.FictionalStock > userProductState.MaximumStock)
+            {
+                <td class="text-center text-danger">@userProductState.FictionalStock</td>
+            }
+            else
+            {
+                <td class="text-center">@userProductState.FictionalStock</td>
+            }
+            <td class="text-center">@userProductState.SoonAvailableStock</td>
+            <td class="text-center">@userProductState.ReservedStock</td>
+            <td class="text-center">@userProductState.MaximumStock</td>
+            <td class="text-center">@userProductState.MinimumStock</td>
+            <td class="text-center">@userProductState.Quantity</td>
+            <td class="text-center">@userProductState.Status</td>
+            <td class="text-center">@userProductState.Created</td>
+        </tr>
+    }
+</table>

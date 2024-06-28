@@ -1,0 +1,39 @@
+﻿@model OrdersShowAllProductsViewModel
+
+<h2 class="text-center display-4 fw-bolder m-3">Overzicht producten</h2>
+<div class="mx-auto d-flex flex-column align-items-center w-75">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">Kies Product</th>
+                <th class="text-center">Beschrijving</th>
+                <th class="text-center">Artikelnummer</th>
+                <th class="text-center">Prijs</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                Guid? currentSupplierId = null;
+            }
+            @foreach (var product in Model.Products)
+            {
+                if (currentSupplierId != product.Supplier.Id)
+                {
+                    <tr>
+                        <td colspan="4" class="text-center"><a asp-controller="Orders" asp-action="SelectProducts" asp-route-supplierId="@product.Supplier.Id" class="text-decoration-none">@product.Supplier.Value</a></td>
+                    </tr>
+                    currentSupplierId = product.Supplier.Id;
+                }
+                <tr>
+                    <td class="text-center">@product.Text</td>
+                    <td class="text-center">@product.Description</td>
+                    <td class="text-center">@product.ArticleNumber</td>
+                    <td class="text-center text-nowrap">&euro; @Math.Round(product.Price, 2)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="mx-auto d-flex align-items-center">
+        <a class="btn btn-outline-info m-3" asp-controller="Orders" asp-action="SelectProductSupplier">Terug</a>
+    </div>
+</div>

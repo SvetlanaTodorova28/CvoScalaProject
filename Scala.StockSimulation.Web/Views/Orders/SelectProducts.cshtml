@@ -1,0 +1,38 @@
+﻿@model OrdersSelectProductsViewModel
+  
+<h2 class="text-center display-4 fw-bolder m-3">Selecteer artikelen</h2>
+<form class="mx-auto d-flex flex-column align-items-center w-75" asp-controller="Orders" asp-action="SelectProducts" method="post">
+    <div class="text-danger fw-bolder" asp-validation-summary="All"></div>
+    <input asp-for="SupplierId"/>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">Kies Product</th>
+                <th class="text-center">Beschrijving</th>
+                <th class="text-center">Artikelnummer</th>
+                <th class="text-center">Prijs</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Products.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <input asp-for="@Model.Products[i].IsSelected" class="form-check-input" />
+                            <label class="form-check-label" asp-for="@Model.Products[i].IsSelected">@Model.Products[i].Text</label>
+                            <input asp-for="@Model.Products[i].ProductId" class="form-control" />
+                        </div>
+                    </td>
+                    <td class="text-center">@Model.Products[i].Description</td>
+                    <td class="text-center">@Model.Products[i].ArticleNumber</td>
+                    <td class="text-center text-nowrap">&euro; @Math.Round(@Model.Products[i].Price, 2)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="mx-auto d-flex align-items-center">
+        <a class="btn btn-outline-info m-3" asp-controller="Orders" asp-action="SelectOrderType">Begin opnieuw</a>
+        <button type="submit" class="m-3 btn btn-outline-info">Selecteer</button>
+    </div>
+</form>

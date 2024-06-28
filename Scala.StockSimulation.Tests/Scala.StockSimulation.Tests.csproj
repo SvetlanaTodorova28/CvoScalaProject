@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0"/>
+        <PackageReference Include="xunit" Version="2.6.2"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
+        <PackageReference Include="coverlet.collector" Version="6.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Scala.StockSimulation.Core\Scala.StockSimulation.Core.csproj" />
+      <ProjectReference Include="..\Scala.StockSimulation.Web\Scala.StockSimulation.Web.csproj" />
+    </ItemGroup>
+
+</Project>

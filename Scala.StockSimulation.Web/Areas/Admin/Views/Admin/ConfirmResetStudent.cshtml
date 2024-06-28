@@ -1,0 +1,10 @@
+﻿@model AdminConfirmResetStudentViewModel
+
+<h2 class="text-center display-4 fw-bolder m-3">Reset student</h2>
+<p>Ben je zeker dat je alle bestellingen van @Model.Name wil wissen?</p>
+<form class="mx-auto d-flex justify-content-center w-100" asp-controller="Admin" asp-action="ResetStudent" method="Post">
+    <input asp-for="Id" />
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-info m-3">Terug</a>
+    <button type="submit" class="btn btn-outline-danger m-3">Bevestig</button>
+</form>
+

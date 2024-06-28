@@ -1,0 +1,27 @@
+﻿@model OverviewIndexViewModel
+
+<h2 class="text-center display-4 fw-bolder m-3">Overzicht</h2>
+@if (TempData.ContainsKey("Message"))
+{
+    <span class="alert-danger">
+        @TempData["Message"]
+    </span>
+}
+<div>
+    <div class="mx-auto w-25">
+        @if (Model.HasUserProductStates)
+        {
+            <a asp-controller="Overview" asp-action="InitStartSituation"
+               class="w-100 m-1 btn btn-outline-info">Initieer startsituatie</a>
+        }
+        else
+        {
+            <a asp-controller="Orders" asp-action="SelectOrderType"
+               class="w-100 m-1 btn btn-outline-info">Nieuwe bestelling</a>
+            <a asp-controller="Overview" asp-action="ShowAllOrders"
+               class="w-100 m-1 btn btn-outline-info">Overzicht bestellingen</a>
+            <a asp-controller="Sales" asp-action="Index"
+               class="w-100 m-1 btn btn-outline-info">Overzicht verkoop per product</a>
+        }
+    </div>
+</div>
