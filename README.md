@@ -14,6 +14,20 @@
 
 **Status:** Voltooid.
 
+### Geautomatiseerd Accountbeheer voor Studenten
+**Use Case:** Importeren van studentgegevens voor het automatisch aanmaken van accounts.
+
+**Doel:** Vereenvoudigen van het proces om accounts aan te maken voor elke student in een klasgroep door middel van het importeren van een CSV/Excel bestand dat alle benodigde gegevens bevat.
+
+**Details:** Ik heb functionaliteit ontwikkeld die het mogelijk maakt voor de administrator om:
+- Een CSV/Excel bestand te uploaden met studentgegevens.
+- Het systeem automatisch accounts te laten creëren gebaseerd op de geüploade gegevens.
+
+**Extra functionaliteit:** Implementatie van data-validatie om de integriteit en juistheid van de geïmporteerde gegevens te waarborgen.
+
+**Status:** Voltooid.
+
+
 ### Breadcrumbs Navigatie
 **Use Case:** Implementatie van Breadcrumbs voor verbeterde navigatie.
 
